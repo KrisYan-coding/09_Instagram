@@ -1,0 +1,70 @@
+
+.post{
+    width: 470px;
+    height: 600px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.header .imgBox{
+    width: 42px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.header .imgBox img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.postImage .imgBox{
+    width: 100%;
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+    background-color: #000;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.postImage .imgBox img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header .username:hover{
+    color: #bbb;
+    cursor: pointer;
+}
+
+.footer .funcs{
+    display: flex;
+}
+
+.footer .funcs > *{
+    padding: 8px;
+    
+}
+
+.footer .funcs > *:hover{
+    color: #888;
+}
+
+.footer .funcs svg{
+    font-size: 28px;
+    display: block;
+    /* transform: scale(-1, 1); */
+}
+

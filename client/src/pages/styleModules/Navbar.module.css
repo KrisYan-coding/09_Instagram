@@ -1,0 +1,50 @@
+.navbar{
+    border-right: 1px solid #ddd;
+}
+.navbar a{
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.sidebarItem{
+    width: 48px;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    cursor: pointer;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.sidebarItem:hover{
+    background-color: #eee;
+}
+
+.sidebarItem svg{
+    display: block;
+    font-size: 24px;
+    transition: .5s;
+}
+
+.sidebarItem:hover svg, .sidebarItem:hover .imgBox{
+    transform: scale(1.1);
+}
+
+
+.imgBox{
+    width: 24px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    overflow: hidden;
+    transition: .5s;
+}
+
+.imgBox img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
