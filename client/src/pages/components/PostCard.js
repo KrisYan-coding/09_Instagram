@@ -5,13 +5,14 @@ import styles from '../styleModules/PostCard.module.css'
 
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded'
-import SendOutlinedIcon from '@mui/icons-material/SendOutlined'
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined'
-import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined'
+
+import {
+  HeartOtline,
+  CommentOtline,
+  ShareOtline,
+  BookmarkOtline,
+  MoreOtline,
+} from '../Icons/PostCardIcons'
 
 function PostCard({ post, likeAPost, likedList, postImagesList }) {
   const navigate = useNavigate()
@@ -22,17 +23,11 @@ function PostCard({ post, likeAPost, likedList, postImagesList }) {
   }
 
   return (
-    <div
-      className={styles.post + ' post'}
-      key={post.id}
-      onClick={() => {
-        navigate(`/post/${post.id}`)
-      }}
-    >
-      <div className={styles.header + ' header text-myblack'}>
+    <div className={styles.post + ' post'} key={post.id}>
+      <div className={styles.header + ' header text-myblack pe-0'}>
         <div className={styles.imgBox + ' imgBox'}>
           <img
-            src={post.image ? `/users/${post.image}` : 'users/user.png'}
+            src={post.image ? `/users/${post.image}` : '/users/user.png'}
             alt="profile_image"
           />
         </div>
@@ -45,32 +40,37 @@ function PostCard({ post, likeAPost, likedList, postImagesList }) {
           {post.new_username}_{post.user_id}
         </div>
         <div className="menu ml-auto">
-          <MoreHorizRoundedIcon></MoreHorizRoundedIcon>
+          <MoreOtline></MoreOtline>
         </div>
       </div>
       <div className={styles.body + ' body'}>
         <div className={styles.postImage + ' postImage'}>
           <div className={styles.imgBox + ' imgBox'}>
-            <img src={`/postImages/${postImagesList[0]}`} alt="postImage" />
+            <img src={`./postImages/${postImagesList[0]}`} alt="postImage" />
           </div>
         </div>
       </div>
       <div className={styles.footer + ' footer'}>
         <div className={styles.funcs + ' funcs'}>
           <div className="fav-icon ps-0">
-            <FavoriteBorderIcon></FavoriteBorderIcon>
+            <HeartOtline />
           </div>
           <div className="comment-icon">
-            <ChatBubbleOutlineRoundedIcon></ChatBubbleOutlineRoundedIcon>
+            <CommentOtline />
           </div>
           <div className="send-icon">
-            <SendOutlinedIcon></SendOutlinedIcon>
+            <ShareOtline></ShareOtline>
           </div>
           <div className="save icon ml-auto pe-0">
-            <BookmarkBorderOutlinedIcon></BookmarkBorderOutlinedIcon>
+            <BookmarkOtline></BookmarkOtline>
           </div>
         </div>
-        <div className="postText">{post.postText}</div>
+        <div className={styles.postText + ' postText text-h55'}>
+          <span className="font-bold mr-1">
+            {post.new_username}_{post.user_id}
+          </span>
+          {post.postText}
+        </div>
         <div
           className="btn-like"
           onClick={(e) => {

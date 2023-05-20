@@ -7,12 +7,14 @@ import SidebarIcon from './SidebarIcon'
 
 import styles from '../styleModules/Navbar.module.css'
 
-import InstagramIcon from '@mui/icons-material/Instagram'
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded'
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined'
 import TableRowsRoundedIcon from '@mui/icons-material/TableRowsRounded'
+import {
+  HomeInsta,
+  HomeHome,
+  HomeHomeActive,
+  HomeCreat,
+  HomeCreatActive,
+} from '../Icons/NavIcons'
 
 function Navbar({ navLink }) {
   const { authState, setAuthState } = useContext(NavLinkContext)
@@ -28,13 +30,13 @@ function Navbar({ navLink }) {
       <div className={styles.navbar + ' navbar'}>
         {/* <a href="/">Home_a</a> */}
 
-        <div className={styles.sidebarItem + ' sidebarItem'}>
+        <div className={styles.sidebarItem + ' sidebarItem mb-12'}>
           <SidebarIcon
             navLink={navLink}
             navLinkto={'home'}
             linkto={'/'}
-            activeIcon={<InstagramIcon></InstagramIcon>}
-            normalIcon={<InstagramIcon></InstagramIcon>}
+            activeIcon={<HomeInsta></HomeInsta>}
+            normalIcon={<HomeInsta></HomeInsta>}
           ></SidebarIcon>
         </div>
 
@@ -62,8 +64,8 @@ function Navbar({ navLink }) {
                 navLink={navLink}
                 navLinkto={'home'}
                 linkto={'/'}
-                activeIcon={<HomeRoundedIcon></HomeRoundedIcon>}
-                normalIcon={<HomeOutlinedIcon></HomeOutlinedIcon>}
+                activeIcon={<HomeHomeActive></HomeHomeActive>}
+                normalIcon={<HomeHome></HomeHome>}
               ></SidebarIcon>
             </div>
             <div className={styles.sidebarItem + ' sidebarItem'}>
@@ -71,13 +73,20 @@ function Navbar({ navLink }) {
                 navLink={navLink}
                 navLinkto={'createpost'}
                 linkto={'/createpost'}
-                activeIcon={<AddBoxRoundedIcon></AddBoxRoundedIcon>}
-                normalIcon={<AddBoxOutlinedIcon></AddBoxOutlinedIcon>}
+                activeIcon={<HomeCreatActive></HomeCreatActive>}
+                normalIcon={<HomeCreat></HomeCreat>}
               ></SidebarIcon>
             </div>
             <div className={styles.sidebarItem + ' sidebarItem'}>
               <Link to={`/profile/${authState.uid}`}>
-                <div className={styles.imgBox + ' imgBox'}>
+                <div
+                  className={
+                    styles.imgBox +
+                    ' ' +
+                    (navLink === 'profile' ? styles.imgBoxBorder : '') +
+                    ' imgBox '
+                  }
+                >
                   <img src={`/users/${authState.image}`} alt="profile-img" />
                 </div>
               </Link>

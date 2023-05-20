@@ -143,7 +143,7 @@ router.post('/delete/:pid', validateToken, async (req, res) => {
 router.get('/byUserId/:uid', async (req, res) => {
   const uid = req.params.uid
 
-  const sql = "SELECT a.*, b.post_id AS count_likes_check, COUNT(a.id) AS count_likes, c.username AS new_username FROM `posts` AS a LEFT JOIN `likes` AS b ON a.id=b.post_id LEFT JOIN users AS c ON a.user_id=c.user_id where a.user_id=? GROUP BY a.id ;"
+  const sql = "SELECT a.*, b.post_id AS count_likes_check, COUNT(a.id) AS count_likes, c.username AS new_username, c.image FROM `posts` AS a LEFT JOIN `likes` AS b ON a.id=b.post_id LEFT JOIN users AS c ON a.user_id=c.user_id WHERE a.user_id=? GROUP BY a.id;"
   let [rows] = await db.query(sql, [uid])
 
   rows = rows.map(el => {
@@ -153,7 +153,21 @@ router.get('/byUserId/:uid', async (req, res) => {
     return el
   })
 
-  return res.json(rows)
+  let postImagesID = rows.map(el => el.id)
+  console.log(postImagesID)
+  let postImages = {}
+  if (postImagesID.length){
+    const sql3 = `SELECT * FROM post_images WHERE post_id IN (${postImagesID});`
+    const [rows3] = await db.query(sql3)
+    postImages = rows3.reduce((sum, el) => {
+      const oldList = sum[el.post_id]? sum[el.post_id] : []
+      const newList = [...oldList, el.post_image]
+  
+      return {...sum, [el.post_id]: newList}
+    }, {})
+  }
+
+  return res.json({posts: rows, postImages})
 })
 
 // --[edit a post]

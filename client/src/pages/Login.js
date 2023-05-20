@@ -7,11 +7,11 @@ import { NavLinkContext } from '../helpers/NavLinkContext'
 function Login() {
   const navigate = useNavigate()
   const { setNavLink } = useContext(NavLinkContext)
-  const { setAuthState, authState } = useContext(NavLinkContext)
+  const { setAuthState, BASE_URL } = useContext(NavLinkContext)
 
   const initialValues = {
-    username: 'kris',
-    password: '111',
+    username: 'Kris',
+    password: '222',
   }
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function Login() {
   })
 
   const handleSubmit = (values) => {
-    const url = 'http://localhost:3001/auth/login'
+    const url = `${BASE_URL}/auth/login`
     fetch(url, {
       method: 'post',
       body: JSON.stringify(values),
@@ -83,6 +83,7 @@ function Login() {
 
   return (
     <>
+      <div>{BASE_URL}</div>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -97,7 +98,7 @@ function Login() {
             name="username"
           ></ErrorMessage>
           <label htmlFor="password">密碼</label>
-          <Field name="password" id="password" type="password"></Field>
+          <Field name="password" id="password" type="text"></Field>
           <ErrorMessage
             className="errMsg"
             component={'div'}

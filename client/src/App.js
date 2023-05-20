@@ -1,5 +1,6 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+// import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { NavLinkContext } from './helpers/NavLinkContext'
@@ -12,6 +13,7 @@ import Registration from './pages/Registration'
 import PageNotFound from './pages/PageNotFound'
 import Profile from './pages/Profile'
 import Navbar from './pages/components/Navbar'
+import Account from './pages/Account'
 import TryFormik from './pages/TryFormik'
 
 import theme from './style/themeMui'
@@ -25,9 +27,11 @@ function App() {
     state: '',
     image: '',
   })
+  // const BASE_URL = 'https://practiceproject-instagram-server.onrender.com'
+  const BASE_URL = 'http://localhost:3001'
 
   useEffect(() => {
-    const url = 'http://localhost:3001/auth/authToken'
+    const url = `${BASE_URL}/auth/authToken`
     fetch(url, {
       headers: {
         user: localStorage.getItem('user') || '',
@@ -52,7 +56,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <NavLinkContext.Provider
-          value={{ setNavLink, authState, setAuthState }}
+          value={{ setNavLink, authState, setAuthState, BASE_URL }}
         >
           <Router>
             <Navbar className="navbar" navLink={navLink}></Navbar>
@@ -72,6 +76,10 @@ function App() {
                   element={<Registration></Registration>}
                 ></Route>
                 <Route
+                  path="/account/:option?"
+                  element={<Account></Account>}
+                ></Route>
+                <Route
                   path="/profile/:uid"
                   element={<Profile></Profile>}
                 ></Route>
@@ -88,5 +96,6 @@ function App() {
     </ThemeProvider>
   )
 }
+// "homepage": "https://krisYan-coding.github.io/practice-project-instagram-client/",
 
 export default App

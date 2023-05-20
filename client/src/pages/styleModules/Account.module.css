@@ -1,0 +1,54 @@
+
+
+.wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top{
+    width: 100%;
+}
+
+.main{
+    width: 100%;
+    max-width: 933px;
+    border: 1px solid;
+    border-color: theme('colors.myBorderBlack');
+    display: flex;
+    margin-left: -2px;
+}
+
+.menu{
+    border-right: 1px solid;
+    border-color: theme('colors.myBorderBlack');
+    width: 236px;
+}
+
+.menu li{
+    text-align: left;
+    border-left: 2px solid rgb(221, 221, 221, 0); 
+}
+
+.menu li.active{
+    border-color: #000;
+}
+
+.menu li a{
+    padding: 12px 12px 12px 30px;
+    display: block;
+}
+
+.menu li:not(.active):hover{
+    background-color: rgb(248, 248, 248);
+    border-left: 2px solid #ddd; 
+}
+
+.content{
+    flex-grow: 1;
+}
+
+.content .title{
+    padding: 32px 0 68px 45px;
+    text-align: left;
+}

@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border-collapse: collapse;
 }
 
 .App{
@@ -11,7 +12,6 @@
 }
 
 .navbar{
-  height: 50px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -24,6 +24,7 @@
 main{
   flex-grow: 1;
   background-color: #fff;
+  padding-left: 69px;
 }
 
 

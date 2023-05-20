@@ -7,10 +7,13 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
+import { useContext } from 'react'
+import { NavLinkContext } from '../../helpers/NavLinkContext'
 
 export default function FormDialog({ openEdit, setOpenEdit, editedPostID }) {
   const [editTitle, setEditTitle] = useState('')
   const [editedPostText, setEditedPostText] = useState('')
+  const { BASE_URL } = useContext(NavLinkContext)
 
   const handleClose = () => {
     setOpenEdit(false)
@@ -24,7 +27,7 @@ export default function FormDialog({ openEdit, setOpenEdit, editedPostID }) {
     //   console.log(i)
     // }
 
-    const url = `http://localhost:3001/posts/edit`
+    const url = `${BASE_URL}/posts/edit`
     fetch(url, {
       method: 'post',
       headers: {
@@ -49,7 +52,7 @@ export default function FormDialog({ openEdit, setOpenEdit, editedPostID }) {
     setEditedPostText('')
 
     if (editedPostID) {
-      const url = `http://localhost:3001/posts/byId/${editedPostID}`
+      const url = `${BASE_URL}/posts/byId/${editedPostID}`
       fetch(url)
         .then((r) => r.json())
         .then((rData) => {

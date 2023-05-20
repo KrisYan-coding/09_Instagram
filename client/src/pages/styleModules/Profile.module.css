@@ -1,0 +1,167 @@
+.wrap{
+    display: flex;
+    justify-content: center;
+}
+
+.profile{
+    padding: 30px 20px 0;
+    width: 100%;
+    max-width: 975px;
+}
+.user{
+    display: flex;
+    width: 100%;
+    margin-bottom: 44px;
+}
+
+.user .userImg{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.userImg .imgBox{
+    width: 150px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 100%;
+}
+
+@media screen and (max-width: 735px) {
+    .user .userImg{
+        width: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 30px;
+    }
+
+    .userImg .imgBox{
+        width: 77px;
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        border-radius: 100%;
+    }
+}
+
+.imgBox img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.user .userInfo{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.userInfo .username{
+    display: flex;
+    align-items: center;
+}
+
+.userInfo .userNameSetting{
+    display: flex;
+    align-items: stretch;
+}
+
+.userNameSetting .editBtn{
+    margin: 3px 0 3px 20px;
+    padding: 0 16px;
+    background-color: #efefef;
+    border-radius: 8px;
+}
+
+.userInfo .settingBtn{
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+}
+
+.userInfo .dashbord{
+    display: flex;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.dashbord span{
+    margin: 0 40px 0 0;
+    font-weight: normal;
+}
+
+.tabs{
+    border-top: 1px solid #dbdbdb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.tabs svg{
+    color: #8e8e8e;
+}
+
+.tabs span{
+    margin: 0 0 0 6px;
+}
+
+.tabs .tab{
+    margin-right: 60px;
+}
+
+.listOfPosts{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.listOfPosts .postBlock{
+    width: calc((100% - 8px) / 3);
+    aspect-ratio: 1/1;
+    margin-right: 4px;
+}
+
+.listOfPosts .postBlock:nth-child(3n){
+    margin-right: 0px;
+}
+
+.listOfPosts .postBlock:nth-child(n+4){
+    margin-top: 4px;
+}
+
+.postBlock{
+    position: relative;
+}
+
+.postBlock .imgBox{
+    width: 100%;
+    height: 100%;
+}
+
+.postBlock img{
+    display: block;
+}
+
+.postBlock .bgHover{
+    background-color: rgba(0,0,0,0);
+    color: rgba(0,0,0,0);
+    font-size: theme('fontSize.h4');
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.postBlock .bgHover:hover{
+    background-color: rgba(0,0,0,0.3);
+    color: #fff;
+}
+

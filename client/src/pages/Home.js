@@ -9,7 +9,7 @@ function Home() {
   const [postImageMap, setPostImageMap] = useState({})
   const [likedList, setLikedList] = useState([])
   const navigate = useNavigate()
-  const { setNavLink, authState } = useContext(NavLinkContext)
+  const { setNavLink, authState, BASE_URL } = useContext(NavLinkContext)
 
   useEffect(() => {
     if (!authState.state && localStorage.getItem('user') === null) {
@@ -22,7 +22,7 @@ function Home() {
   }, [])
 
   const getPostData = () => {
-    const url = 'http://localhost:3001/posts'
+    const url = `${BASE_URL}/posts`
     fetch(url, {
       method: 'get',
       headers: {
@@ -50,7 +50,7 @@ function Home() {
       return alert('Not Login')
     }
 
-    const url = `http://localhost:3001/likes/${pid}`
+    const url = `${BASE_URL}/likes/${pid}`
     fetch(url, {
       method: 'post',
       headers: {

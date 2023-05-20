@@ -10,11 +10,11 @@ function Post() {
   const [postObject, setPostObject] = useState({})
   const [listOfComments, setListOfComments] = useState([])
   const [newComment, setNewComment] = useState('')
-  const { authState } = useContext(NavLinkContext)
+  const { authState, BASE_URL } = useContext(NavLinkContext)
   const navigate = useNavigate()
 
   const renderComments = () => {
-    const url = `http://localhost:3001/comments/${pid}`
+    const url = `${BASE_URL}/comments/${pid}`
     axios.get(url).then((res) => {
       console.log(url, res.data)
       setListOfComments(res.data.result)
@@ -27,7 +27,7 @@ function Post() {
       return
     }
 
-    const url = `http://localhost:3001/posts/byId/${pid}`
+    const url = `${BASE_URL}/posts/byId/${pid}`
     axios.get(url).then((res) => {
       console.log(url, res.data)
       setPostObject(...res.data)
@@ -70,7 +70,7 @@ function Post() {
     //   }
     // }
 
-    const url = 'http://localhost:3001/comments'
+    const url = '${BASE_URL}/comments'
     const fd = JSON.stringify({
       comment: newComment,
       post_id: pid,
@@ -104,7 +104,7 @@ function Post() {
   const deleteComment = (e) => {
     const cid = e.currentTarget.getAttribute('data-cid')
 
-    const url = `http://localhost:3001/comments/${cid}`
+    const url = `${BASE_URL}/comments/${cid}`
     fetch(url, {
       method: 'delete',
       headers: {
@@ -128,7 +128,7 @@ function Post() {
   }
 
   const deletePost = () => {
-    const url = `http://localhost:3001/posts/delete/${postObject.id}`
+    const url = `${BASE_URL}/posts/delete/${postObject.id}`
     fetch(url, {
       method: 'post',
       headers: {

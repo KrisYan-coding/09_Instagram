@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { NavLinkContext } from '../helpers/NavLinkContext'
 
 function Registration() {
-  const { setNavLink } = useContext(NavLinkContext)
+  const { setNavLink, BASE_URL } = useContext(NavLinkContext)
 
   useEffect(() => {
     setNavLink('registration')
@@ -34,7 +34,7 @@ function Registration() {
   const handleSubmit = (values) => {
     // console.log(values)
 
-    fetch('http://localhost:3001/auth/', {
+    fetch(`${BASE_URL}/auth/`, {
       method: 'post',
       body: JSON.stringify(values),
       headers: {

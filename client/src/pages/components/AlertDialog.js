@@ -5,8 +5,12 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
+import { useContext } from 'react'
+import { NavLinkContext } from '../../helpers/NavLinkContext'
 
 export default function AlertDialog({ openAlert, setOpenAlert, editedPostID }) {
+  const { BASE_URL } = useContext(NavLinkContext)
+
   const handleClickOpen = () => {
     setOpenAlert(true)
   }
@@ -16,7 +20,7 @@ export default function AlertDialog({ openAlert, setOpenAlert, editedPostID }) {
   }
 
   const handleDelete = () => {
-    const url = `http://localhost:3001/posts/delete/${editedPostID}`
+    const url = `${BASE_URL}/posts/delete/${editedPostID}`
     fetch(url, {
       method: 'delete',
       headers: {

@@ -35,11 +35,15 @@
 
 
 .imgBox{
-    width: 24px;
+    width: 28px;
     aspect-ratio: 1/1;
     border-radius: 100%;
     overflow: hidden;
     transition: .5s;
+}
+
+.imgBoxBorder{
+    border: 2px solid #000;
 }
 
 .imgBox img{

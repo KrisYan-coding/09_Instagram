@@ -4,17 +4,33 @@ import { NavLinkContext } from '../helpers/NavLinkContext'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
+import styles from './styleModules/Profile.module.css'
 
 import FormDialog from './components/FormDialog'
 import AlertDialog from './components/AlertDialog'
 import PostMenu from './components/PostMenu'
+import PostCard from './components/PostCard'
+import {
+  ProfileSetting,
+  ProfileCollect,
+  ProfileCite,
+  ProfilePost,
+} from './Icons/ProfileIcons'
 
 function Profile() {
   const { uid } = useParams()
-  const [username, setUsername] = useState('')
+  const [CurrentUserInfo, setCurrentUserInfo] = useState({
+    user_id: '',
+    username: '',
+    image: '',
+    user_intro: '大家好',
+  })
   const [likedList, setLikedList] = useState([])
   const [listOfPosts, setListOfPosts] = useState([])
-  const { authState, setNavLink } = useContext(NavLinkContext)
+  const { authState, setNavLink, BASE_URL } = useContext(NavLinkContext)
+  const [postImageMap, setPostImageMap] = useState({})
 
   const [openEdit, setOpenEdit] = useState(false)
   const [editedPostID, setEditedPostID] = useState(0)
@@ -23,12 +39,13 @@ function Profile() {
   const navigate = useNavigate()
 
   const getProfilePostList = () => {
-    const url2 = `http://localhost:3001/posts/byUserId/${uid}`
+    const url2 = `${BASE_URL}/posts/byUserId/${uid}`
     fetch(url2)
       .then((r) => r.json())
       .then((rData) => {
         console.log(url2, rData)
-        setListOfPosts(rData)
+        setListOfPosts(rData.posts)
+        setPostImageMap(rData.postImages)
       })
   }
 
@@ -37,12 +54,12 @@ function Profile() {
   })
 
   useEffect(() => {
-    const url = `http://localhost:3001/auth/basicInfo/${uid}`
+    const url = `${BASE_URL}/auth/basicInfo/${uid}`
     fetch(url)
       .then((r) => r.json())
       .then((rData) => {
         console.log(url, rData)
-        setUsername(rData[0].username)
+        setCurrentUserInfo(rData[0])
       })
 
     getProfilePostList()
@@ -50,7 +67,7 @@ function Profile() {
 
   useEffect(() => {
     if (authState.uid) {
-      const url3 = `http://localhost:3001/likes/checkLikeList/${authState.uid}`
+      const url3 = `${BASE_URL}/likes/checkLikeList/${authState.uid}`
       fetch(url3)
         .then((r) => r.json())
         .then((rData) => {
@@ -68,7 +85,7 @@ function Profile() {
       return alert('Not Login')
     }
 
-    const url = `http://localhost:3001/likes/${pid}`
+    const url = `${BASE_URL}/likes/${pid}`
     fetch(url, {
       method: 'post',
       headers: {
@@ -108,12 +125,93 @@ function Profile() {
   }
 
   return (
-    <div>
-      <div className="basicInfo">
-        <h2>{username} 的個人頁面</h2>
-      </div>
-      <div className="listOfPosts">
-        {listOfPosts.map((post) => {
+    <div className={styles.wrap + ' wrap'}>
+      <div className={styles.profile + ' profile'}>
+        <div className={styles.user + ' user'}>
+          <div className={styles.userImg + ' userImg'}>
+            <div className={styles.imgBox + ' imgBox'}>
+              <img
+                src={
+                  CurrentUserInfo.image.length
+                    ? `/users/${CurrentUserInfo.image}`
+                    : '/users/user.png'
+                }
+                alt="userImage"
+              />
+            </div>
+          </div>
+          <div className={styles.userInfo + ' userInfo'}>
+            <div className={styles.userNameSetting + ' userNameSetting'}>
+              <div className={styles.username + ' username text-h4'}>
+                {CurrentUserInfo.username}
+              </div>
+              <button
+                className={styles.editBtn + ' userInfo text-h6 font-bold'}
+              >
+                <Link to="/account/edit/">編輯個人檔案</Link>
+              </button>
+              <div className={styles.settingBtn + ' settingBtn'}>
+                <Link to={`/account/changePassword/`}>
+                  <ProfileSetting />
+                </Link>
+              </div>
+            </div>
+            <div className={styles.dashbord + ' dashbord'}>
+              <div className={styles.numOfPosts + ' numOfPosts'}>{9}</div>
+              <span>貼文</span>
+              <div className={styles.numOfFans + ' numOfFans'}>{123}</div>
+              <span>位粉絲</span>
+              <div className={styles.numOfFollowings + ' numOfFollowings'}>
+                {292}
+              </div>
+              <span>追蹤中</span>
+            </div>
+            <div className={styles.into + ' into text-h6 text-start'}>
+              {CurrentUserInfo.user_intro}
+            </div>
+          </div>
+        </div>
+        <div className={styles.tabs + ' tabs'}>
+          <div className={styles.tab + ' tab'}>
+            <ProfilePost />
+            <span className="text-h7">貼文</span>
+          </div>
+          <div className={styles.tab + ' tab'}>
+            <ProfileCollect />
+            <span className="text-h7">我的珍藏</span>
+          </div>
+          <div className={styles.tab + ' tab'}>
+            <ProfileCite />
+            <span className="text-h7">已標註</span>
+          </div>
+        </div>
+        <div className={styles.listOfPosts + ' listOfPosts'}>
+          {listOfPosts.map((post) => {
+            return (
+              <div className={styles.postBlock + ' postBlock'} key={post.id}>
+                <div className={styles.imgBox + ' imgBox'}>
+                  <img
+                    src={'/postImages/' + postImageMap[post.id][0]}
+                    alt="postImage-first"
+                  />
+                </div>
+                <div className={styles.bgHover + ' bgHover'}>
+                  <div className="postlikes font-bold mr-4">
+                    <i className="fa-solid fa-heart mr-2"></i>
+                    {post.count_likes}
+                  </div>
+                  <div className="postcomments font-bold">
+                    <i
+                      className="fa-solid fa-comment mr-2"
+                      style={{ transform: 'scale(-1, 1)' }}
+                    ></i>
+                    {post.count_likes}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+          {/* {listOfPosts.map((post) => {
           return (
             <div className="post" key={post.id}>
               <div className="title">
@@ -174,18 +272,19 @@ function Profile() {
               </div>
             </div>
           )
-        })}
+        })} */}
+        </div>
+        <FormDialog
+          openEdit={openEdit}
+          setOpenEdit={setOpenEdit}
+          editedPostID={editedPostID}
+        ></FormDialog>
+        <AlertDialog
+          openAlert={openAlert}
+          setOpenAlert={setOpenAlert}
+          editedPostID={editedPostID}
+        ></AlertDialog>
       </div>
-      <FormDialog
-        openEdit={openEdit}
-        setOpenEdit={setOpenEdit}
-        editedPostID={editedPostID}
-      ></FormDialog>
-      <AlertDialog
-        openAlert={openAlert}
-        setOpenAlert={setOpenAlert}
-        editedPostID={editedPostID}
-      ></AlertDialog>
     </div>
   )
 }

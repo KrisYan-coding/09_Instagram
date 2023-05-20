@@ -7,7 +7,7 @@ import { useEffect, useContext } from 'react'
 import { NavLinkContext } from '../helpers/NavLinkContext'
 
 function CreatePost() {
-  const { setNavLink, authState } = useContext(NavLinkContext)
+  const { setNavLink, authState, BASE_URL } = useContext(NavLinkContext)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function CreatePost() {
     console.log(data)
     // json 格式送出
     axios
-      .post('http://localhost:3001/posts', data, {
+      .post(`${BASE_URL}/posts`, data, {
         headers: {
           user: localStorage.getItem('user') || '',
         },
