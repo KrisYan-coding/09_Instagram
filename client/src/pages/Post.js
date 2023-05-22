@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { NavLinkContext } from '../helpers/NavLinkContext'
+import { useAuth } from '../helpers/AuthContext'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ function Post() {
   const [postObject, setPostObject] = useState({})
   const [listOfComments, setListOfComments] = useState([])
   const [newComment, setNewComment] = useState('')
-  const { authState, BASE_URL } = useContext(NavLinkContext)
+  const { authState, BASE_URL } = useAuth()
   const navigate = useNavigate()
 
   const renderComments = () => {

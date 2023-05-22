@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
-import { NavLinkContext } from '../../helpers/NavLinkContext'
 import { json, Link } from 'react-router-dom'
-import { Button } from '@mui/material'
+import { useAuth } from '../../helpers/AuthContext'
 
 import SidebarIcon from './SidebarIcon'
 
@@ -17,7 +16,7 @@ import {
 } from '../Icons/NavIcons'
 
 function Navbar({ navLink }) {
-  const { authState, setAuthState } = useContext(NavLinkContext)
+  const { authState, setAuthState } = useAuth()
 
   const logout = () => {
     localStorage.removeItem('user')

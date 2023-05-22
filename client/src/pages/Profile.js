@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { NavLinkContext } from '../helpers/NavLinkContext'
+import { useNavLink } from '../helpers/NavLinkContext'
+import { useAuth } from '../helpers/AuthContext'
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt'
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt'
 import { useNavigate } from 'react-router-dom'
@@ -29,7 +30,8 @@ function Profile() {
   })
   const [likedList, setLikedList] = useState([])
   const [listOfPosts, setListOfPosts] = useState([])
-  const { authState, setNavLink, BASE_URL } = useContext(NavLinkContext)
+  const { setNavLink } = useNavLink()
+  const { authState, BASE_URL } = useAuth()
   const [postImageMap, setPostImageMap] = useState({})
 
   const [openEdit, setOpenEdit] = useState(false)

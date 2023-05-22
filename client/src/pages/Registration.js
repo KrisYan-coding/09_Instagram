@@ -1,10 +1,12 @@
 import React, { useEffect, useContext } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import { NavLinkContext } from '../helpers/NavLinkContext'
+import { useNavLink } from '../helpers/NavLinkContext'
+import { useAuth } from '../helpers/AuthContext'
 
 function Registration() {
-  const { setNavLink, BASE_URL } = useContext(NavLinkContext)
+  const { setNavLink } = useNavLink()
+  const { BASE_URL } = useAuth()
 
   useEffect(() => {
     setNavLink('registration')

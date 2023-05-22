@@ -8,12 +8,12 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import { useContext } from 'react'
-import { NavLinkContext } from '../../helpers/NavLinkContext'
+import { useAuth } from '../../helpers/AuthContext'
 
 export default function FormDialog({ openEdit, setOpenEdit, editedPostID }) {
   const [editTitle, setEditTitle] = useState('')
   const [editedPostText, setEditedPostText] = useState('')
-  const { BASE_URL } = useContext(NavLinkContext)
+  const { BASE_URL } = useAuth()
 
   const handleClose = () => {
     setOpenEdit(false)

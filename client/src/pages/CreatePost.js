@@ -3,11 +3,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useContext } from 'react'
-import { NavLinkContext } from '../helpers/NavLinkContext'
+import { useEffect } from 'react'
+import { useAuth } from '../helpers/AuthContext'
+import { useNavLink } from '../helpers/NavLinkContext'
 
 function CreatePost() {
-  const { setNavLink, authState, BASE_URL } = useContext(NavLinkContext)
+  const { authState, BASE_URL } = useAuth()
+  const { setNavLink } = useNavLink()
   const navigate = useNavigate()
 
   useEffect(() => {

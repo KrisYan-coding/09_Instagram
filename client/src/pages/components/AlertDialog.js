@@ -6,10 +6,10 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import { useContext } from 'react'
-import { NavLinkContext } from '../../helpers/NavLinkContext'
+import { useAuth } from '../../helpers/AuthContext'
 
 export default function AlertDialog({ openAlert, setOpenAlert, editedPostID }) {
-  const { BASE_URL } = useContext(NavLinkContext)
+  const { BASE_URL } = useAuth()
 
   const handleClickOpen = () => {
     setOpenAlert(true)

@@ -2,12 +2,13 @@ import React, { useEffect, useContext } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
-import { NavLinkContext } from '../helpers/NavLinkContext'
+import { useNavLink } from '../helpers/NavLinkContext'
+import { useAuth } from '../helpers/AuthContext'
 
 function Login() {
   const navigate = useNavigate()
-  const { setNavLink } = useContext(NavLinkContext)
-  const { setAuthState, BASE_URL } = useContext(NavLinkContext)
+  const { setNavLink } = useNavLink()
+  const { BASE_URL, setAuthState } = useAuth()
 
   const initialValues = {
     username: 'Kris',
@@ -27,6 +28,7 @@ function Login() {
   })
 
   const handleSubmit = (values) => {
+    console.log(BASE_URL)
     const url = `${BASE_URL}/auth/login`
     fetch(url, {
       method: 'post',

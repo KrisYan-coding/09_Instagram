@@ -1,6 +1,6 @@
 import React from 'react'
 import { useContext } from 'react'
-import { NavLinkContext } from '../../helpers/NavLinkContext'
+import { useAuth } from '../../helpers/AuthContext'
 import { useForm } from 'react-hook-form'
 
 import styles from '../styleModules/ChangePassword.module.css'
@@ -12,7 +12,7 @@ function ChangePassword() {
     handleSubmit,
   } = useForm()
 
-  const { BASE_URL } = useContext(NavLinkContext)
+  const { BASE_URL } = useAuth()
 
   const changePassword = (data) => {
     console.log(data)
@@ -35,9 +35,12 @@ function ChangePassword() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(changePassword)}>
+      <form
+        className={styles.form + ' form mb-2'}
+        onSubmit={handleSubmit(changePassword)}
+      >
         <div className={styles.formItem + ' formItem mb-2'}>
-          <label>舊密碼</label>
+          <label className={styles.label + ' label'}>舊密碼</label>
           <input
             className={styles.input + ' input'}
             type="text"
@@ -50,7 +53,7 @@ function ChangePassword() {
           />
         </div>
         <div className={styles.formItem + ' formItem text-h6'}>
-          <label></label>
+          <label className={styles.label + ' label'}></label>
           <div>
             {errors.oldPassword?.type === 'required'
               ? '舊密碼為必填'
@@ -61,7 +64,7 @@ function ChangePassword() {
           </div>
         </div>
         <div className={styles.formItem + ' formItem mb-2'}>
-          <label>新密碼</label>
+          <label className={styles.label + ' label'}>新密碼</label>
           <input
             className={styles.input + ' input'}
             type="text"
@@ -70,7 +73,7 @@ function ChangePassword() {
           />
         </div>
         <div className={styles.formItem + ' formItem text-h6'}>
-          <label></label>
+          <label className={styles.label + ' label'}></label>
           <div>
             {errors.newPassword?.type === 'required'
               ? '新密碼為必填'
@@ -81,7 +84,7 @@ function ChangePassword() {
           </div>
         </div>
         <div className={styles.formItem + ' formItem'}>
-          <label></label>
+          <label className={styles.label + ' label'}></label>
           <button>提交</button>
         </div>
       </form>

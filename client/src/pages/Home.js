@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react'
 // import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { NavLinkContext } from '../helpers/NavLinkContext'
+import { useNavLink } from '../helpers/NavLinkContext'
 import PostCard from './components/PostCard'
+import { useAuth } from '../helpers/AuthContext'
 
 function Home() {
   const [postsList, setPostsList] = useState([])
   const [postImageMap, setPostImageMap] = useState({})
   const [likedList, setLikedList] = useState([])
+  const [commentCountMap, setCommentCountMap] = useState({})
   const navigate = useNavigate()
-  const { setNavLink, authState, BASE_URL } = useContext(NavLinkContext)
+  const { setNavLink } = useNavLink()
+  const { authState, BASE_URL } = useAuth()
 
   useEffect(() => {
     if (!authState.state && localStorage.getItem('user') === null) {
@@ -36,54 +39,9 @@ function Home() {
           setPostsList(rData.posts)
           setLikedList(rData.likedList)
           setPostImageMap(rData.postImages)
+          setCommentCountMap(rData.commentCount)
         } else {
           navigate('/login')
-        }
-      })
-  }
-
-  const likeAPost = (e, pid) => {
-    e.stopPropagation()
-    console.log('like', pid)
-
-    if (!authState.state) {
-      return alert('Not Login')
-    }
-
-    const url = `${BASE_URL}/likes/${pid}`
-    fetch(url, {
-      method: 'post',
-      headers: {
-        user: localStorage.getItem('user') || '',
-      },
-    })
-      .then((r) => r.json())
-      .then((rData) => {
-        console.log(url, rData)
-        if (!rData.success) {
-          alert('please re-login')
-        } else {
-          if (likedList.includes(pid)) {
-            setLikedList(
-              likedList.filter((el) => {
-                return el !== pid
-              })
-            )
-          } else {
-            setLikedList([...likedList, pid])
-          }
-          setPostsList(
-            postsList.map((el) => {
-              if (el.id === pid) {
-                if (rData.liked) {
-                  el.count_likes += 1
-                } else {
-                  el.count_likes -= 1
-                }
-              }
-              return el
-            })
-          )
         }
       })
   }
@@ -95,9 +53,12 @@ function Home() {
           <PostCard
             key={post.id}
             post={post}
-            likeAPost={likeAPost}
             likedList={likedList}
             postImagesList={postImageMap[post.id]}
+            commentCountMap={commentCountMap}
+            postsList={postsList}
+            setPostsList={setPostsList}
+            setLikedList={setLikedList}
           />
         )
       })}
